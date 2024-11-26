@@ -1,0 +1,13 @@
+include: 
+  - project: 'arq-devops-team/pipelines-gitlab/template-pipeline-pruebas-funcionales'
+    ref: main
+    file: 'pipeline-pruebas-funcionales.yml'
+    
+variables:
+  idIssue:
+    value: "TDQ-59"
+    description: "ID de issue desde jira, que tiene la información de las pruebas automatizadas"
+  sistema:
+    value: "Portal - Personas"
+    description: "Sistema sobre el cual está trabajando la historia de usuario"
+

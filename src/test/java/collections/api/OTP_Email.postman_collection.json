@@ -1,0 +1,528 @@
+{
+	"info": {
+		"_postman_id": "996dbc44-5627-46d8-a48c-029fcc8371e8",
+		"name": "[Evolucion Tecnologica] API INNER/ACL /authorization-factors/v1/otp/{groupId}/{clientId}",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31207730"
+	},
+	"item": [
+		{
+			"name": "200 OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp/personas/175661158",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"personas",
+						"175661158"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP_001",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"\r",
+							"pm.test(\"CP_001 - Error Código 5203004, message: user incorrect\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"5203004\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"User personas/11652829 was not found and cannot be used for authentication.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CP_001 - message: Response API time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp/personas/11652829",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"personas",
+						"11652829"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP_002",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"\r",
+							"pm.test(\"CP_002 - Error Código 5203004, message: user not found en IDG\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"5203004\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"User personas/179204908 was not found and cannot be used for authentication.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CP_002 - message: Response API time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp/personas/179204908",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"personas",
+						"179204908"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP_003",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"\r",
+							"pm.test(\"CP_003 - Error Código 5203004, message: usergroup incorrect\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"5203004\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"User empresas/66238881 was not found and cannot be used for authentication.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CP_003 - message: Response API time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp/empresas/66238881",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"empresas",
+						"66238881"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP_004",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"\r",
+							"pm.test(\"CP_004 - Error Código 5203016, message: user is locked in IDG\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"5203016\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Maximum authentication attempts exceeded. User personas/67570987 is locked.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CP_004 - message: Response API time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp/personas/67570987",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"personas",
+						"67570987"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP_005",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"\r",
+							"pm.test(\"CP_005 - message: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.text()).to.include(\"otp\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CP_005 - message: Response API time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"    });\r",
+							"   \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp/personas/116528290",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"personas",
+						"116528290"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP_007",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"\r",
+							"pm.test(\"CP_007 - Error Código 404, message: without usergroup/user parameters in the URL API\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"404\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"No resources match requested URI\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CP_007 - message: Response API time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "a76ce28bbdb2feee0e5484021b4eb03e",
+						"type": "text"
+					},
+					{
+						"key": "x-client-secret",
+						"value": "f8e69fe6b213ed9f0787e643845f9f9f",
+						"type": "text"
+					},
+					{
+						"key": "channel-id",
+						"value": "08",
+						"type": "text"
+					},
+					{
+						"key": "channel-name",
+						"value": "NewApp",
+						"type": "text"
+					},
+					{
+						"key": "application",
+						"value": "Mobile",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apiinsb.itauchile2.cl/inner/acl/authorization-factors/v1/otp//",
+					"protocol": "https",
+					"host": [
+						"apiinsb",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"inner",
+						"acl",
+						"authorization-factors",
+						"v1",
+						"otp",
+						"",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

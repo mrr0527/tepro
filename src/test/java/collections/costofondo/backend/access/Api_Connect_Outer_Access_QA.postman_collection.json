@@ -1,0 +1,1650 @@
+{
+	"info": {
+		"_postman_id": "0f9be13d-c169-4dd8-b8b2-d96f437a75a3",
+		"name": "Api_Connect_Outer_Access_QA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2449751"
+	},
+	"item": [
+		{
+			"name": "Validar_acceso_con_token_valido_para_rol_aprobador_0001",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data_aprobador\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.have.members(['fund-cost']);\r",
+							"    pm.expect(ids).to.not.include.members(['operations-web']);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM004_Validar_opciones_menu_aprobador\", function () {\r",
+							"    const expectedTitles = ['Cotizar', 'Mis Cotizaciones', 'Aprobaciones'];\r",
+							"    const actualTitles = pm.response.json().data[0].children.map(child => child.title);\r",
+							"    pm.expect(actualTitles).to.have.members(expectedTitles);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoA}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar_acceso_con_token_valido_para_rol_operaciones",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data_operaciones\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.have.members(['operations-web']);\r",
+							"    pm.expect(ids).to.not.include.members(['fund-cost']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoO}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidarAccesoTokenValido_UsuarioRolAprobadorYCotizador",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.include.members(['fund-cost']);\r",
+							"    pm.expect(ids).to.not.include.members(['operations-web']);\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"PM004_Validar_opciones_menu_aprobador\", function () {\r",
+							"    const childrenTitles = pm.response.json().data[0].children.map(child => child.title);\r",
+							"    pm.expect(childrenTitles).to.include.members(['Cotizar', 'Mis Cotizaciones', 'Aprobaciones']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoAYC}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidarAccesoTokenValido_UsuarioRolAprobadorYOperaciones",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.include.members(['fund-cost', 'operations-web']);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM004_Validar_opciones_menu_aprobador\", function () {\r",
+							"    const childrenTitles = pm.response.json().data[0].children.map(child => child.title);\r",
+							"    pm.expect(childrenTitles).to.include.members(['Cotizar', 'Mis Cotizaciones', 'Aprobaciones']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoAYO}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidarAccesoTokenValido_UsuarioRolAprobadorCotizadorYOperaciones",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.include.members(['fund-cost', 'operations-web']);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM004_Validar_opciones_menu_aprobador\", function () {\r",
+							"    const childrenTitles = pm.response.json().data[0].children.map(child => child.title);\r",
+							"    pm.expect(childrenTitles).to.include.members(['Cotizar', 'Mis Cotizaciones', 'Aprobaciones']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoACYO}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidarAccesoTokenValido_UsuarioRolCotizadorYOperaciones",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.include.members(['fund-cost', 'operations-web']);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM004_Validar_opciones_menu_aprobador\", function () {\r",
+							"    const childrenTitles = pm.response.json().data[0].children.map(child => child.title);\r",
+							"    pm.expect(childrenTitles).to.include.members(['Cotizar', 'Mis Cotizaciones']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoCYO}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar_acceso_con_token_valido_para_rol_cotizador_0002",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const schemaValidate={\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"statusCode\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"data\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"id\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"url\": {\r",
+							"              \"type\": \"string\"\r",
+							"            },\r",
+							"            \"children\": {\r",
+							"              \"type\": \"array\",\r",
+							"              \"items\": [\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                },\r",
+							"                {\r",
+							"                  \"type\": \"object\",\r",
+							"                  \"properties\": {\r",
+							"                    \"title\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"href\": {\r",
+							"                      \"type\": \"string\"\r",
+							"                    }\r",
+							"                  },\r",
+							"                  \"required\": [\r",
+							"                    \"title\",\r",
+							"                    \"href\"\r",
+							"                  ]\r",
+							"                }\r",
+							"              ]\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"id\",\r",
+							"            \"url\",\r",
+							"            \"children\"\r",
+							"          ]\r",
+							"        }\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"statusCode\",\r",
+							"    \"message\",\r",
+							"    \"data\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"schemaValidate\", schemaValidate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"PM001_Validar_estructura_del_response\", ()=> {\r",
+							"    const schema_response = pm.collectionVariables.get(\"schemaValidate\")\r",
+							"    pm.response.to.have.jsonSchema(schema_response)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_status_es_200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM003_Validar_opciones_Data_cotizador\", function () {\r",
+							"    const data = pm.response.json().data;\r",
+							"\r",
+							"    const ids = data.map(record => record.id);\r",
+							"    pm.expect(ids).to.include.members(['fund-cost']);\r",
+							"    pm.expect(ids).to.not.include.members(['operations-web']);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PM004_Validar_opciones_menu_cotizador\", function () {\r",
+							"    const childrenTitles = pm.response.json().data[0].children.map(child => child.title);\r",
+							"    pm.expect(childrenTitles).to.include.members(['Cotizar', 'Mis Cotizaciones']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenValidoC}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar_acceso_con_token_vencido_para_rol_aprobador_0003",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"PM001_Validar_que_el_status_es_401\", function(){\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM002_Validar_que_el_token_este_vencido\", function(){\r",
+							"    pm.expect( jsonData.statusCode).to.eq(401);\r",
+							"    pm.expect( jsonData.message).to.eq('UnauthorizedError');\r",
+							"    pm.expect( jsonData.data.name).to.eq('TokenExpiredError');\r",
+							"    pm.expect( jsonData.data.message).to.eq('jwt expired');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenVencidoA}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar_acceso_con_token_vencido_para_rol_cotizador_0004",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"PM008_Validar_que_el_status_es_401\", function(){\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM009_Validar_que_el_token_este_vencido\", function(){\r",
+							"    pm.expect( jsonData.statusCode).to.eq(401);\r",
+							"    pm.expect( jsonData.message).to.eq('UnauthorizedError');\r",
+							"    pm.expect( jsonData.data.name).to.eq('TokenExpiredError');\r",
+							"    pm.expect( jsonData.data.message).to.eq('jwt expired');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenVencidoC}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar_acceso_con_token_no_valido_0005",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"PM008_Validar_que_el_status_es_401\", function(){\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM009_Validar_que_el_token_no_sea_valido\", function(){\r",
+							"    pm.expect( jsonData.statusCode).to.eq(401);\r",
+							"    pm.expect( jsonData.message).to.eq('UnauthorizedError');\r",
+							"    pm.expect( jsonData.data.name).to.eq('JsonWebTokenError');\r",
+							"    pm.expect( jsonData.data.message).to.eq('invalid token');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenInvalido}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar_acceso_con_usuario_en_AD_sin_perfil_creado_en_PAT_0006",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"PM008_Validar_que_el_status_es_401\", function(){\r",
+							"    pm.response.to.have.status(401);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"PM009_Validar_que_el_token_no_autorice\", function(){\r",
+							"    pm.expect( jsonData.statusCode).to.eq(401);\r",
+							"    pm.expect( jsonData.message).to.eq('User without menu access');\r",
+							"    pm.expect( jsonData.error).to.eq('Unauthorized');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenNoAutorizado}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-client-id",
+						"value": "d2c4e216bba850e29d87f9a4f804c279",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gw.sb.apis.itauchile2.cl/channels/collaborators/access/v1/access",
+					"protocol": "https",
+					"host": [
+						"gw",
+						"sb",
+						"apis",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"channels",
+						"collaborators",
+						"access",
+						"v1",
+						"access"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "schemaValidate",
+			"value": ""
+		}
+	]
+}

@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "aa1745f0-8be3-440e-a61c-6ca5119a35cf",
+		"name": "ID_VIV_HAB_APROBADAAPREEVALUADOR_001",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6641145",
+		"_collection_link": "https://blue-star-40929.postman.co/workspace/Sprint-51_52-Preevaluador~a343d36f-1923-4c4b-a2c6-4b30da419ed4/collection/6641145-aa1745f0-8be3-440e-a61c-6ca5119a35cf?action=share&source=collection_link&creator=6641145"
+	},
+	"item": [
+		{
+			"name": "Aprobado politica A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const fw = eval(environment.framework);\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validar StatusCode --> 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar etiqueta resolutionCode => 11\",function(){\r",
+							"    pm.expect(jsonData.resolutionCode).equals(11);\r",
+							"});\r",
+							"pm.test(\"Validar etiqueta message => aprobado por politica A\",function(){\r",
+							"    pm.expect(jsonData.message).equals(\"aprobado por politica A\");\r",
+							"});\r",
+							"pm.test(\"Validar etiqueta description => pre-avaludo con éxito\",function(){\r",
+							"    pm.expect(jsonData.description).equals(\"pre-avaludo con éxito\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"birthDate\":\"1989-02-09\",\r\n\"simulationDetailId\":\"d0e4a317-0fe5-4db8-bed7-7216b77254eb-1\",\r\n\"workingStatus\":\"trabajador\",\r\n\"clientMonthlyIncome\":2500000,\r\n\"coOwnerName\":\"\",\r\n\"coOwnerLastName\":\"\",\r\n\"coOwnerSecondLastName\":\"\",\r\n\"coOwnerId\":0,\r\n\"coOwnerDv\":\"\",\r\n\"coOwnerBirthDate\":\"\",\r\n\"coOwnerWorkingStatus\":\"contrato\",\r\n\"coOwnerMonthlyIncome\":0,\r\n\"propertyPurpose\":\"V\",\r\n\"preEvaluationDate\":\"2022-06-24 22:57:36\",\r\n\"evaluationId\":\"8947\",\r\n\"clientName\":\"Francisca\",\r\n\"clientLastName\":\"Peña\",\r\n\"clientSecondLastName\":\"Ramos\",\r\n\"clientId\":16979262,\r\n\"clientDv\":\"3\",\r\n\"email\":\"cornejo@aja.cl\",\r\n\"phone\":\"12345678\",\r\n\"propertyValue\":2500,\r\n\"regionId\":13,\r\n\"communeId\":10,\r\n\"creditTerm\":20,\r\n\"propertyType\":200,\r\n\"propertyAntiquity\":1,\r\n\"variableTerm\":0,\r\n\"graceMonths\":2,\r\n\"reliefInsurance\":10,\r\n\"fireInsurance\":21,\r\n\"dfl2\":0,\r\n\"mortgageLoanProductCode\":4,\r\n\"yearPropertyPurchase\":2022,\r\n\"propertyPurchaseMonth\":12,\r\n\"userName\":\"TOCTOC\",\r\n\"fundingPercentage\":80,\r\n\"firstProperty\":true,\r\n\"mortgageLoanPurpose\":1,\r\n\"income\":1,\r\n\"channel\":14,\r\n\"creditAmount\":1875,\r\n\"downPaymentAmount\":625,\r\n\"monthlyPaymentCLP\":457574\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://incomesdata-risk-preevaluador-bcl-ms-qa.itauchile2.cl/V1/mortgage-loan-evaluation",
+					"protocol": "http",
+					"host": [
+						"incomesdata-risk-preevaluador-bcl-ms-qa",
+						"itauchile2",
+						"cl"
+					],
+					"path": [
+						"V1",
+						"mortgage-loan-evaluation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
