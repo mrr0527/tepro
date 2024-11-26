@@ -1,0 +1,14 @@
+Paso 1 - Inicio prueba TemplateApi
+Paso 2 - archivo log no encontrado
+Paso 3 - Execution data file created: .\src\test\java\execution_data\tesoreria\TemplateApi.json
+Paso 4 - Node postman connector file created: .\src\test\java\comunidades\tesoreria\TemplateApi.js
+Paso 5 - Node process ready to be executed
+Paso 6 - Services automation test executed
+Paso 7 - Contiene Informacion de Ejecución true
+Paso 8 - Contiene Informacion Estadistica true
+Paso 9 - Iteraciones de Validación{"total":1,"pending":0,"failed":0}
+Paso 10 - Script de POSTMAN{"total":3,"pending":0,"failed":0}
+Paso 11 - Verificaciones{"total":0,"pending":0,"failed":0}
+Paso 12 - Script de Prueba{"total":2,"pending":0,"failed":0}
+Paso 13 - Error al devolver el response body java.io.FileNotFoundException: .\src\test\java\logs\body.csv (El sistema no puede encontrar el archivo especificado)
+Paso 14 - Success: Caso Finalizado

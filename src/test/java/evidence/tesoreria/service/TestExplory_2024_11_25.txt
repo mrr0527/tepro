@@ -1,0 +1,12 @@
+Paso 1 - Inicio prueba TestExplory
+Paso 2 - archivo log borrado para evitar un falso positivo
+Paso 3 - Execution data file created: .\src\test\java\execution_data\tesoreria\TestExplory.json
+Paso 4 - Node postman connector file created: .\src\test\java\comunidades\tesoreria\TestExplory.js
+Paso 5 - Node process ready to be executed
+Paso 6 - Services automation test executed
+Fail: Caso Finalizado
+
+Exception message:
+.\src\test\java\logs\response.postman_collection.log.json (El sistema no puede encontrar el archivo especificado)
+Line number:
+java.base/java.io.FileInputStream.open0(Native Method)

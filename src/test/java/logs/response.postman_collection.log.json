@@ -1,0 +1,604 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "6681ed52-7883-450d-99f6-7590aff52c7a",
+      "exporter_id": "6641145",
+      "collection_link": "https://blue-star-40929.postman.co/workspace/Sprint-51_52-Preevaluador~a343d36f-1923-4c4b-a2c6-4b30da419ed4/collection/6641145-6681ed52-7883-450d-99f6-7590aff52c7a?action=share&source=collection_link&creator=6641145"
+    },
+    "item": [
+      {
+        "id": "c7831123-b247-48e5-b679-7a316c5cbc2c",
+        "name": "Aprobado politica A con ajustes",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "path": [
+              "V1",
+              "mortgage-loan-evaluation"
+            ],
+            "host": [
+              "incomesdata-risk-preevaluador-bcl-ms-qa",
+              "itauchile2",
+              "cl"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n\"birthDate\":\"1987-02-09\",\r\n\"simulationDetailId\":\"d0e4a317-0fe5-4db8-bed7-7216b77254eb-1\",\r\n\"workingStatus\":\"trabajador\",\r\n\"coOwnerName\":\"\",\r\n\"coOwnerLastName\":\"\",\r\n\"coOwnerSecondLastName\":\"\",\r\n\"coOwnerId\":0,\r\n\"coOwnerDv\":\"\",\r\n\"coOwnerBirthDate\":\"\",\r\n\"coOwnerWorkingStatus\":\"contrato\",\r\n\"coOwnerMonthlyIncome\":0,\r\n\"propertyPurpose\":\"V\",\r\n\"preEvaluationDate\":\"2022-06-24 22:57:36\",\r\n\"evaluationId\":\"8947\",\r\n\"propertyType\":200,\r\n\"propertyAntiquity\":1,\r\n\"variableTerm\":0,\r\n\"graceMonths\":2,\r\n\"reliefInsurance\":10,\r\n\"fireInsurance\":21,\r\n\"dfl2\":0,\r\n\"mortgageLoanProductCode\":4,\r\n\"yearPropertyPurchase\":2022,\r\n\"propertyPurchaseMonth\":12,\r\n\"userName\":\"TOCTOC\",\r\n\"fundingPercentage\":80,\r\n\"firstProperty\":true,\r\n\"mortgageLoanPurpose\":1,\r\n\"income\":1,\r\n\"channel\":14,\r\n\"clientName\":\"Francisca\",\r\n\"clientLastName\":\"Peña\",\r\n\"clientSecondLastName\":\"Ramos\",\r\n\"clientId\":16979262,\r\n\"clientDv\":\"3\",\r\n\"clientMonthlyIncome\":3445000,\r\n\"email\":\"cornejo@aja.cl\",\r\n\"phone\":\"12345678\",\r\n\"propertyValue\":5000,\r\n\"downPaymentAmount\":1000,\r\n\"monthlyPaymentCLP\":1171702,\r\n\"creditAmount\":4000,\r\n\"regionId\":13,\r\n\"communeId\":10,\r\n\"creditTerm\":15\r\n\r\n}\r\n",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "efd99293-707a-4917-8b67-482270609311",
+              "type": "text/javascript",
+              "exec": [
+                "const fw = eval(environment.framework);\r",
+                "var jsonData = pm.response.json();\r",
+                "\r",
+                "pm.test(\"Validar StatusCode --> 200\", function () {\r",
+                "    pm.response.to.have.status(200);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Validar etiqueta resolutionCode => 12\",function(){\r",
+                "    pm.expect(jsonData.resolutionCode).equals(12);\r",
+                "});\r",
+                "pm.test(\"Validar etiqueta message => aprobado por politica A\",function(){\r",
+                "    pm.expect(jsonData.message).equals(\"aprobado por politica A\");\r",
+                "});\r",
+                "pm.test(\"Validar etiqueta description => pre-evaluado con cambios\",function(){\r",
+                "    pm.expect(jsonData.description).equals(\"pre-evaluado con cambios\");\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Validar que se aplico ajustes con la propiedad Result Values  Credit Term=> con la informacion del plazo del credito\",function(){\r",
+                "    pm.expect(jsonData.resetValues.creditTerm).not.equal(null);\r",
+                "});\r",
+                ""
+              ],
+              "_lastExecutionId": "814015a5-2f34-4eae-a7a4-be5a08bfe56c"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "6681ed52-7883-450d-99f6-7590aff52c7a",
+      "name": "ID_VIV_HAB_APROBADAAAJUSTADAPREEVALUADOR_002",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "id": "0e5d3bc9-2152-4897-8350-fa9d1267df92",
+    "values": []
+  },
+  "globals": {
+    "id": "909a0d2e-ece5-4605-ae84-2431b325a800",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 22230,
+      "responseMin": 22230,
+      "responseMax": 22230,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1730213164453,
+      "completed": 1730213186819
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "a2a3b6a0-eaea-4245-9bb2-fea0765ceeed",
+          "httpRequestId": "43882eb2-258c-4558-b2ce-212a5b8b803d"
+        },
+        "item": {
+          "id": "c7831123-b247-48e5-b679-7a316c5cbc2c",
+          "name": "Aprobado politica A con ajustes",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "path": [
+                "V1",
+                "mortgage-loan-evaluation"
+              ],
+              "host": [
+                "incomesdata-risk-preevaluador-bcl-ms-qa",
+                "itauchile2",
+                "cl"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"birthDate\":\"1987-02-09\",\r\n\"simulationDetailId\":\"d0e4a317-0fe5-4db8-bed7-7216b77254eb-1\",\r\n\"workingStatus\":\"trabajador\",\r\n\"coOwnerName\":\"\",\r\n\"coOwnerLastName\":\"\",\r\n\"coOwnerSecondLastName\":\"\",\r\n\"coOwnerId\":0,\r\n\"coOwnerDv\":\"\",\r\n\"coOwnerBirthDate\":\"\",\r\n\"coOwnerWorkingStatus\":\"contrato\",\r\n\"coOwnerMonthlyIncome\":0,\r\n\"propertyPurpose\":\"V\",\r\n\"preEvaluationDate\":\"2022-06-24 22:57:36\",\r\n\"evaluationId\":\"8947\",\r\n\"propertyType\":200,\r\n\"propertyAntiquity\":1,\r\n\"variableTerm\":0,\r\n\"graceMonths\":2,\r\n\"reliefInsurance\":10,\r\n\"fireInsurance\":21,\r\n\"dfl2\":0,\r\n\"mortgageLoanProductCode\":4,\r\n\"yearPropertyPurchase\":2022,\r\n\"propertyPurchaseMonth\":12,\r\n\"userName\":\"TOCTOC\",\r\n\"fundingPercentage\":80,\r\n\"firstProperty\":true,\r\n\"mortgageLoanPurpose\":1,\r\n\"income\":1,\r\n\"channel\":14,\r\n\"clientName\":\"Francisca\",\r\n\"clientLastName\":\"Peña\",\r\n\"clientSecondLastName\":\"Ramos\",\r\n\"clientId\":16979262,\r\n\"clientDv\":\"3\",\r\n\"clientMonthlyIncome\":3445000,\r\n\"email\":\"cornejo@aja.cl\",\r\n\"phone\":\"12345678\",\r\n\"propertyValue\":5000,\r\n\"downPaymentAmount\":1000,\r\n\"monthlyPaymentCLP\":1171702,\r\n\"creditAmount\":4000,\r\n\"regionId\":13,\r\n\"communeId\":10,\r\n\"creditTerm\":15\r\n\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "efd99293-707a-4917-8b67-482270609311",
+                "type": "text/javascript",
+                "exec": [
+                  "const fw = eval(environment.framework);\r",
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Validar StatusCode --> 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Validar etiqueta resolutionCode => 12\",function(){\r",
+                  "    pm.expect(jsonData.resolutionCode).equals(12);\r",
+                  "});\r",
+                  "pm.test(\"Validar etiqueta message => aprobado por politica A\",function(){\r",
+                  "    pm.expect(jsonData.message).equals(\"aprobado por politica A\");\r",
+                  "});\r",
+                  "pm.test(\"Validar etiqueta description => pre-evaluado con cambios\",function(){\r",
+                  "    pm.expect(jsonData.description).equals(\"pre-evaluado con cambios\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Validar que se aplico ajustes con la propiedad Result Values  Credit Term=> con la informacion del plazo del credito\",function(){\r",
+                  "    pm.expect(jsonData.resetValues.creditTerm).not.equal(null);\r",
+                  "});\r",
+                  ""
+                ],
+                "_lastExecutionId": "814015a5-2f34-4eae-a7a4-be5a08bfe56c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "path": [
+              "V1",
+              "mortgage-loan-evaluation"
+            ],
+            "host": [
+              "incomesdata-risk-preevaluador-bcl-ms-qa",
+              "itauchile2",
+              "cl"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.36.3",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "223b7333-b52e-4bbd-9b57-47c73db3f4cf",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "incomesdata-risk-preevaluador-bcl-ms-qa.itauchile2.cl",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "1121",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n\"birthDate\":\"1987-02-09\",\r\n\"simulationDetailId\":\"d0e4a317-0fe5-4db8-bed7-7216b77254eb-1\",\r\n\"workingStatus\":\"trabajador\",\r\n\"coOwnerName\":\"\",\r\n\"coOwnerLastName\":\"\",\r\n\"coOwnerSecondLastName\":\"\",\r\n\"coOwnerId\":0,\r\n\"coOwnerDv\":\"\",\r\n\"coOwnerBirthDate\":\"\",\r\n\"coOwnerWorkingStatus\":\"contrato\",\r\n\"coOwnerMonthlyIncome\":0,\r\n\"propertyPurpose\":\"V\",\r\n\"preEvaluationDate\":\"2022-06-24 22:57:36\",\r\n\"evaluationId\":\"8947\",\r\n\"propertyType\":200,\r\n\"propertyAntiquity\":1,\r\n\"variableTerm\":0,\r\n\"graceMonths\":2,\r\n\"reliefInsurance\":10,\r\n\"fireInsurance\":21,\r\n\"dfl2\":0,\r\n\"mortgageLoanProductCode\":4,\r\n\"yearPropertyPurchase\":2022,\r\n\"propertyPurchaseMonth\":12,\r\n\"userName\":\"TOCTOC\",\r\n\"fundingPercentage\":80,\r\n\"firstProperty\":true,\r\n\"mortgageLoanPurpose\":1,\r\n\"income\":1,\r\n\"channel\":14,\r\n\"clientName\":\"Francisca\",\r\n\"clientLastName\":\"Peña\",\r\n\"clientSecondLastName\":\"Ramos\",\r\n\"clientId\":16979262,\r\n\"clientDv\":\"3\",\r\n\"clientMonthlyIncome\":3445000,\r\n\"email\":\"cornejo@aja.cl\",\r\n\"phone\":\"12345678\",\r\n\"propertyValue\":5000,\r\n\"downPaymentAmount\":1000,\r\n\"monthlyPaymentCLP\":1171702,\r\n\"creditAmount\":4000,\r\n\"regionId\":13,\r\n\"communeId\":10,\r\n\"creditTerm\":15\r\n\r\n}\r\n",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "36cc024c-0d96-493f-91dc-a121079f7b0c",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Tue, 29 Oct 2024 14:46:26 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "229"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"e5-qNg+tpxw/JnlHxA57CULIbQ6JjY\""
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              50,
+              48,
+              48,
+              44,
+              34,
+              114,
+              101,
+              115,
+              111,
+              108,
+              117,
+              116,
+              105,
+              111,
+              110,
+              67,
+              111,
+              100,
+              101,
+              34,
+              58,
+              49,
+              50,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              97,
+              112,
+              114,
+              111,
+              98,
+              97,
+              100,
+              111,
+              32,
+              112,
+              111,
+              114,
+              32,
+              112,
+              111,
+              108,
+              105,
+              116,
+              105,
+              99,
+              97,
+              32,
+              65,
+              34,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              112,
+              114,
+              101,
+              45,
+              101,
+              118,
+              97,
+              108,
+              117,
+              97,
+              100,
+              111,
+              32,
+              99,
+              111,
+              110,
+              32,
+              99,
+              97,
+              109,
+              98,
+              105,
+              111,
+              115,
+              34,
+              44,
+              34,
+              115,
+              105,
+              109,
+              117,
+              108,
+              97,
+              116,
+              105,
+              111,
+              110,
+              73,
+              100,
+              34,
+              58,
+              34,
+              54,
+              100,
+              102,
+              102,
+              50,
+              99,
+              98,
+              99,
+              45,
+              53,
+              100,
+              48,
+              102,
+              45,
+              52,
+              98,
+              54,
+              53,
+              45,
+              97,
+              48,
+              52,
+              55,
+              45,
+              54,
+              56,
+              98,
+              51,
+              48,
+              101,
+              98,
+              101,
+              52,
+              53,
+              100,
+              48,
+              34,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              86,
+              97,
+              108,
+              117,
+              101,
+              115,
+              34,
+              58,
+              123,
+              34,
+              99,
+              114,
+              101,
+              100,
+              105,
+              116,
+              84,
+              101,
+              114,
+              109,
+              34,
+              58,
+              50,
+              53,
+              44,
+              34,
+              99,
+              114,
+              101,
+              100,
+              105,
+              116,
+              65,
+              109,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              52,
+              48,
+              48,
+              48,
+              125,
+              44,
+              34,
+              114,
+              101,
+              97,
+              115,
+              111,
+              110,
+              34,
+              58,
+              123,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 22230,
+          "responseSize": 229
+        },
+        "id": "c7831123-b247-48e5-b679-7a316c5cbc2c",
+        "assertions": [
+          {
+            "assertion": "Validar StatusCode --> 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Validar etiqueta resolutionCode => 12",
+            "skipped": false
+          },
+          {
+            "assertion": "Validar etiqueta message => aprobado por politica A",
+            "skipped": false
+          },
+          {
+            "assertion": "Validar etiqueta description => pre-evaluado con cambios",
+            "skipped": false
+          },
+          {
+            "assertion": "Validar que se aplico ajustes con la propiedad Result Values  Credit Term=> con la informacion del plazo del credito",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 229
+    },
+    "failures": [],
+    "error": null
+  }
+}

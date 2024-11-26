@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Gradle suite]" verbose="0">
+  <test thread-count="5" name="Gradle test(failed)" verbose="0">
+    <classes>
+      <class name="comunidades.tesoreria.capacitacion.ShoppingTest">
+        <methods>
+          <include name="ShoppingTest"/>
+          <include name="afterMain"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- comunidades.tesoreria.capacitacion.ShoppingTest -->
+    </classes>
+  </test> <!-- Gradle test(failed) -->
+</suite> <!-- Failed suite [Gradle suite] -->

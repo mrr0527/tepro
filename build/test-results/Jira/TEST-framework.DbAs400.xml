@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="framework.DbAs400" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-11-25T05:29:59" hostname="LP94E979BDDCBB" time="0.1">
+  <properties/>
+  <testcase name="conexion" classname="framework.DbAs400" time="0.1"/>
+  <system-out><![CDATA[Conexión establecida con éxito
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

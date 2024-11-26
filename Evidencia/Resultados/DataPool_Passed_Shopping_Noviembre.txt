@@ -1,0 +1,4 @@
+CP;RUT;PASSWORD;DATA;ID_CAEx;PLATAFORMA;FUNCIONALIDAD;DETALLE;BROWSER;DATE
+ShoppingTest;;Admin.123;-;ShoppingTest;Shopping;Login;Longin exitoso;CHROME;25-11-2024
+ShoppingTest;;Admin.123;-;ShoppingTest;Shopping;Login;Longin exitoso;CHROME;25-11-2024
+ShoppingTest;;Admin.123;-;ShoppingTest;Shopping;Login;Longin exitoso;CHROME;25-11-2024
